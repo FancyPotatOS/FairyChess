@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Profile>Reach</Profile>
+  <Platform>Windows</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/bishop_0.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/bishop_1.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/blank.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/captureable.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/castle.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/choice.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/empty_0.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/empty_1.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/instruc.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/king_0.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/king_1.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/knight_0.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/knight_1.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/moveable.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/palettes.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/pawn_0.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/pawn_1.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/queen_0.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/queen_1.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/rook_0.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/rook_1.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/selected.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/stalemate.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/won_0.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/won_1.png</File>
+  </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+  </DestFiles>
+</SourceFileCollection>
