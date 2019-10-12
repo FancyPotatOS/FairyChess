@@ -8,124 +8,161 @@ namespace Chess
 
         bool hasMoved;
         public bool movedTwice;
+        public bool skipMoveTwice;
 
         public Pawn(byte t) : base(t)
         {
             tile = "pawn_" + t;
             hasMoved = false;
             movedTwice = false;
-            
+            skipMoveTwice = false;
+
+
             prom.Insert(0, typeof(Queen));
             prom.Insert(0, typeof(Knight));
             prom.Insert(0, typeof(Rook));
             prom.Insert(0, typeof(Bishop));
         }
 
-        public override void Move()
+        public override List<byte[][]> GetMove(Piece[,] board)
+        {
+            List<byte[][]> moves = new List<byte[][]>();
+            byte[] pos = GetPos(board);
+
+            sbyte sign = (sbyte)((((team + 1) % 2) * 2) - 1);
+            sbyte[] vec = { (sbyte)(sign * (team / 2)), (sbyte)((((team / 2) + 1) % 2) * sign) };
+
+            // Move one, then two
+            for (int i = 1; i < 3; i++)
+            {
+                if (i == 2 && hasMoved) { continue; }
+
+                byte[] tempPos = { (byte)(pos[0] + (vec[0] * i)), (byte)(pos[1] + (vec[1] * i)) };
+                if (0 <= tempPos[0] && tempPos[0] < board.GetLength(0) && 0 <= tempPos[1] && tempPos[1] < board.GetLength(1))
+                {
+
+                    if (board[tempPos[0], tempPos[1]] == null)
+                    {
+                        byte[][] move = new byte[2][];
+                        move[0] = new byte[] { tempPos[0], tempPos[1] , pos[0], pos[1] };
+                        move[1] = new byte[] { pos[0], pos[1], byte.MaxValue, (byte)(byte.MaxValue - i) };
+                        moves.Add(move);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+
+            // Check if can capture
+            for (int i = -1; i < 2; i += 2)
+            {
+                byte[] tempPos = { (byte)(pos[0] + vec[0]), (byte)(pos[1] + vec[1]) };
+                tempPos[0] += (byte)(((vec[0] + 1) % 2) * i);
+                tempPos[1] += (byte)(((vec[1] + 1) % 2) * i);
+
+                if (0 <= tempPos[0] && tempPos[0] < board.GetLength(0) && 0 <= tempPos[1] && tempPos[1] < board.GetLength(1))
+                {
+                    if (board[tempPos[0], tempPos[1]] != null)
+                    {
+                        if (board[tempPos[0], tempPos[1]].team != this.team)
+                        {
+                            byte[][] move = new byte[3][];
+                            move[0] = new byte[] { tempPos[0], tempPos[1], byte.MaxValue, byte.MaxValue };
+                            move[1] = new byte[] { tempPos[0], tempPos[1], pos[0], pos[1] };
+                            move[2] = new byte[] { pos[0], pos[1], byte.MaxValue, byte.MaxValue-1 };
+                            moves.Add(move);
+                        }
+                    }
+                }
+            }
+
+            // Check for En Passant
+            for (int i = -1; i < 2; i += 2)
+            {
+                byte[] tempPos = { (byte)(pos[0]), (byte)(pos[1]) };
+                tempPos[0] += (byte)(((vec[0] + 1) % 2) * i);
+                tempPos[1] += (byte)(((vec[1] + 1) % 2) * i);
+
+                if (0 <= tempPos[0] && tempPos[0] < board.GetLength(0) && 0 <= tempPos[0] && tempPos[0] < board.GetLength(1))
+                {
+                    if (board[tempPos[0], tempPos[1]] != null)
+                    {
+                        if (board[tempPos[0], tempPos[1]].team != this.team)
+                        {
+
+                            if (board[tempPos[0], tempPos[1]].GetType() == typeof(Pawn))
+                            {
+                                Pawn p = (Pawn)board[tempPos[0], tempPos[1]];
+                                if (p.movedTwice)
+                                {
+                                    byte[][] move = new byte[3][];
+                                    move[0] = new byte[] { tempPos[0], tempPos[1], byte.MaxValue, byte.MaxValue };
+
+                                    tempPos[0] = (byte)(tempPos[0] + vec[0]);
+                                    tempPos[1] = (byte)(tempPos[1] + vec[1]);
+
+                                    if (board[tempPos[0], tempPos[1]] != null)
+                                    {
+                                        continue;
+                                    }
+
+                                    move[1] = new byte[] { tempPos[0], tempPos[1], pos[0], pos[1] };
+                                    move[2] = new byte[] { pos[0], pos[1], byte.MaxValue, byte.MaxValue - 1 };
+                                    moves.Add(move);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            return moves;
+        }
+
+        public override void Update()
+        {
+            if (skipMoveTwice)
+            {
+                skipMoveTwice = false;
+            }
+            else
+            {
+                movedTwice = false;
+            }
+        }
+
+        public override Game1.GameState Move(Piece[,] board, int code)
         {
             hasMoved = true;
-        }
-
-        public bool CanEnPassant(Piece[,] board)
-        {
-            byte[] pos = GetPos(board);
-            sbyte dY = (sbyte)(1 - (team * 2));
-
-            for (int i = -1; i <= 1; i+=2)
+            if (code == 2)
             {
-                // Has piece there
-                if (board[pos[0] + i, pos[1]] != null)
+                movedTwice = true;
+                skipMoveTwice = true;
+            }
+
+            byte[] currPos = GetPos(board);
+            if (((byte)(team / 2)) > 0)
+            {
+                byte supposeX = (byte)(((byte)(team / 2)) * (team % 2) * board.GetLength(0));
+                if (supposeX == currPos[0])
                 {
-                    // Is Pawn
-                    if (board[pos[0] + i, pos[1]].GetType().Equals(typeof(Pawn)))
-                    {
-                        // Is opposite team
-                        if (board[pos[0] + i, pos[1]].team != this.team)
-                        {
-                            // Did move 2 spaces last
-                            if (((Pawn)board[pos[0] + i, pos[1]]).movedTwice)
-                            {
-                                return true;
-                            }
-                        }
-                    }
+                    listening = true;
+                    return Game1.GameState.prom;
                 }
             }
-            return false;
-        }
-
-        public override bool[,] GetMove(Piece[,] board)
-        {
-            bool[,] move = new bool[board.GetLength(0), board.GetLength(1)];
-
-            byte[] pos = GetPos(board);
-
-            for (int i = 0; i < 2; i++)
+            else
             {
-                sbyte dY = (sbyte)(1 - (team * 2));
-                for (sbyte j = -1; j <= 1; j+=2)
+                byte supposeY = (byte)(((((byte)(team / 2)) + 1) % 2) * (((team % 2) + 1) % 2) * (board.GetLength(1)-1));
+                if (supposeY == currPos[1])
                 {
-                    if ((pos[0] + j) < 0 || move.GetLength(0) <= (pos[0] + j) || (pos[1] + dY) < 0 || move.GetLength(1) <= (pos[1] + dY)) { continue; }
-
-
-                    if (board[(pos[0] + j), (pos[1] + dY)] != null)
-                    {
-                        if (board[(pos[0] + j), (pos[1] + dY)].team != this.team)
-                        {
-                            move[(pos[0] + j), (pos[1] + dY)] = true;
-                        }
-                    }
-                }
-
-                // Do not check last forward movement if already moved once
-                if (hasMoved && i > 0)
-                {
-                    continue;
-                }
-                else if (i == 1 && board[pos[0], pos[1] + dY] != null)
-                {
-                    continue;
-                }
-
-                dY *= (sbyte)(i+1);
-
-                if (pos[1] + dY < 0 || board.GetLength(1) <= pos[1] + dY)
-                {
-                    continue;
-                }
-
-                if (board[pos[0], pos[1] + dY] == null)
-                {
-                    move[pos[0], pos[1] + dY] = true;
+                    listening = true;
+                    return Game1.GameState.prom;
                 }
             }
 
-            // En Passant
-            for (int i = -1; i <= 1; i += 2)
-            {
-
-                if ((pos[0] + i) < 0 || move.GetLength(0) <= (pos[0] + i) || (pos[1]) < 0 || move.GetLength(1) <= (pos[1])) { continue; }
-
-                // Has piece there
-                if (board[pos[0] + i, pos[1]] != null)
-                {
-                    // Is Pawn
-                    if (board[pos[0] + i, pos[1]].GetType().Equals(typeof(Pawn)))
-                    {
-                        // Is opposite team
-                        if (board[pos[0] + i, pos[1]].team != this.team)
-                        {
-                            // Did move 2 spaces last
-                            if (((Pawn)board[pos[0] + i, pos[1]]).movedTwice)
-                            {
-                                move[pos[0] + i, pos[1] + (1 - (team * 2))] = true;
-                            }
-                        }
-                    }
-                }
-            }
-
-            return move;
+            return Game1.GameState.blank;
         }
     }
 }

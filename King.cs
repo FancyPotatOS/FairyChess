@@ -16,41 +16,55 @@ namespace Chess
             hasMoved = false;
         }
 
-        public override void Move()
+        public override Game1.GameState Move(Piece[,] board, int code)
         {
             hasMoved = true;
+            return Game1.GameState.blank;
         }
 
-        public override bool[,] GetMove(Piece[,] board)
+        public override List<byte[][]> GetMove(Piece[,] board)
         {
-            bool[,] move = new bool[board.GetLength(0), board.GetLength(1)];
+            List<byte[][]> moves = new List<byte[][]>();
             byte[] pos = GetPos(board);
 
-            for (int i = -1; i < 2; i++)
+            for (int x = -1; x < 2; x++)
             {
-                for (int j = -1; j < 2; j++)
+                for (int y = -1; y < 2; y++)
                 {
-                    if (i == 0 && j == 0)
+                    if (x == 0 && y == 0)
                     {
                         continue;
                     }
-                    if (!((pos[0] + i) < 0 || (pos[0] + i) >= board.GetLength(0) || (pos[1] + j) < 0 || (pos[1] + j) >= board.GetLength(1)))
+                    int[] newPos = { (pos[0] + x), (pos[1] + y) };
+
+                    if (newPos[0] < 0 || board.GetLength(0) <= newPos[0] || newPos[1] < 0 || board.GetLength(1) <= newPos[1])
                     {
-                        if (board[pos[0] + i, pos[1] + j] != null)
+                        continue;
+                    }
+                    else
+                    {
+                        if (board[newPos[0], newPos[1]] != null)
                         {
-                            if (board[pos[0] + i, pos[1] + j].team != this.team)
+                            if (board[newPos[0], newPos[1]].team != this.team)
                             {
-                                move[pos[0] + i, pos[1] + j] = true;
+                                byte[][] move = new byte[3][];
+                                move[0] = new byte[]{ (byte)newPos[0], (byte)newPos[1], byte.MaxValue, byte.MaxValue };
+                                move[1] = new byte[] { (byte)newPos[0], (byte)newPos[1], pos[0], pos[1] };
+                                move[2] = new byte[] { pos[0], pos[1], byte.MaxValue, byte.MaxValue-1 };
+                                moves.Add(move);
                             }
                         }
                         else
                         {
-                            move[pos[0] + i, pos[1] + j] = true;
+                            byte[][] move = new byte[2][];
+                            move[0] = new byte[] { (byte)newPos[0], (byte)newPos[1], pos[0], pos[1] };
+                            move[1] = new byte[] { pos[0], pos[1], byte.MaxValue, byte.MaxValue-1 };
+                            moves.Add(move);
                         }
                     }
                 }
             }
-            return move;
+            return moves;
         }
     }
 }

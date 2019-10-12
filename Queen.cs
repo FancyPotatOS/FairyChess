@@ -13,77 +13,49 @@ namespace Chess
             tile = "queen_" + t;
         }
 
-        public override bool[,] GetMove(Piece[,] board)
+        public override List<byte[][]> GetMove(Piece[,] board)
         {
-            // Assume cannot move
-            bool[,] move = new bool[board.GetLength(0), board.GetLength(1)];
+            List<byte[][]> moves = new List<byte[][]>();
 
-            // Find piece
             byte[] pos = GetPos(board);
 
-            for (int seed = 0; seed < 4; seed++)
+            for (byte seed = 0; seed < 8; seed++)
             {
-                sbyte[] dir = { (sbyte)(((seed / 2) * 2) - 1), (sbyte)(1 - ((seed / 2) * 2)) };
-                sbyte sign = (sbyte)(((seed % 2) * 2) - 1);
-                int[] currPos = { (pos[0] + (dir[0] * sign)), (pos[1] + dir[1]) };
-                while (0 <= currPos[0] && currPos[0] < board.GetLength(0) && 0 <= currPos[1] && currPos[1] < board.GetLength(1))
+                sbyte dX = (sbyte)(((seed + 2) % 3) - 1);
+                sbyte dY = (sbyte)((((seed / 3) + 2) % 3) - 1);
+                int[] newPos = { (pos[0] + dX), (pos[0] + dY) };
+
+
+                while (0 <= newPos[0] && newPos[0] < board.GetLength(0) && 0 <= newPos[1] && newPos[1] < board.GetLength(1))
                 {
-                    if (board[currPos[0], currPos[1]] != null)
+                    if (board[newPos[0], newPos[1]] != null)
                     {
-                        if (board[currPos[0], currPos[1]].team != this.team)
+                        if (board[newPos[0], newPos[1]].team != this.team)
                         {
-                            move[currPos[0], currPos[1]] = true;
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        move[currPos[0], currPos[1]] = true;
-                    }
-
-                    currPos[0] += (dir[0] * sign);
-                    currPos[1] += dir[1];
-                }
-            }
-
-            // Make direction vectors
-            int[][] dirs = new int[4][];
-            dirs[0] = new int[] { 1, 0 };
-            dirs[1] = new int[] { -1, 0 };
-            dirs[2] = new int[] { 0, 1 };
-            dirs[3] = new int[] { 0, -1 };
-
-            // Move in direction vectors until hits piece, making true
-            for (int i = 0; i < 4; i++)
-            {
-                for (int j = 1; j < board.Length; j++)
-                {
-                    int spotX = (pos[0] + (dirs[i][0] * j));
-                    int spotY = (pos[1] + (dirs[i][1] * j));
-                    if (spotX < 0 || spotX >= board.GetLength(0) || spotY < 0 || spotY >= board.GetLength(1))
-                    {
-                        break;
-                    }
-                    else if (board[spotX, spotY] == null)
-                    {
-                        move[spotX, spotY] = true;
-                    }
-                    else
-                    {
-                        if (board[spotX, spotY].team != this.team)
-                        {
-                            move[spotX, spotY] = true;
-                            break;
+                            byte[][] move = new byte[3][];
+                            move[0] = new byte[]{ (byte)newPos[0], (byte)newPos[1], byte.MaxValue, byte.MaxValue};
+                            move[1] = new byte[]{ (byte)newPos[0], (byte)newPos[1], pos[0], pos[1] };
+                            move[2] = new byte[] { pos[0], pos[1], byte.MaxValue, byte.MaxValue - 1 };
+                            moves.Add(move);
                         }
                         else
                         {
                             break;
                         }
                     }
+                    else
+                    {
+                        byte[][] move = new byte[2][];
+                        move[0] = new byte[] { (byte)newPos[0], (byte)newPos[1], pos[0], pos[1] };
+                        move[1] = new byte[] { pos[0], pos[1], byte.MaxValue, byte.MaxValue - 1 };
+                        moves.Add(move);
+                    }
+
+                    newPos[0] += dX;
+                    newPos[1] += dY;
                 }
             }
-
-            return move;
+            return moves;
         }
     }
 }
