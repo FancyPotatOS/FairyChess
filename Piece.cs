@@ -38,7 +38,7 @@ namespace Chess
 
                 for (int i = 0; i < curr.Length; i++)
                 {
-                    if (curr[i][2] == byte.MaxValue || curr[i][3] == byte.MaxValue)
+                    if (curr[i][2] == byte.MaxValue)
                     {
                         copy[curr[i][0], curr[i][1]] = null;
                     }
@@ -79,8 +79,7 @@ namespace Chess
         public byte[] GetPos(Piece[,] board)
         {
             byte[] pos = { 0, 0 };
-            bool found = false;
-            for (byte x = 0; x < board.GetLength(0) && !found; x++)
+            for (byte x = 0; x < board.GetLength(0); x++)
             {
                 for (byte y = 0; y < board.GetLength(1); y++)
                 {
@@ -88,12 +87,16 @@ namespace Chess
                     {
                         pos[0] = x;
                         pos[1] = y;
-                        found = true;
-                        break;
+                        return pos;
                     }
                 }
             }
             return pos;
+        }
+
+        public virtual List<byte[][]> GetAttack(Piece[,] board)
+        {
+            return null;
         }
 
     }

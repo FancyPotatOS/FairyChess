@@ -29,8 +29,17 @@ namespace Chess
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         readonly Piece[,] board;
+
+        readonly static int drawSize = 64;
+        readonly static int boardSize = 8;
+        
+
+        List<byte[][]> currMoves;
+        byte moveSel;
+        bool selType;
+        byte[] altSel;
         readonly byte[] currSel;
-        readonly byte[] moveSel;
+
         byte currTurn;
 
         byte promoteSel;
@@ -51,20 +60,30 @@ namespace Chess
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            board = new Piece[8, 8];
-            currSel = new byte[] { 0, 0, 0, 0 };
-            moveSel = new byte[] { 0, 0, 0, 0 };
-            currTurn = 0;
+            board = new Piece[boardSize, boardSize];
+            currSel = new byte[] { 0, 0 };
+
+            moveSel = 0;
+            altSel = new byte[] { 0, 0 };
+            selType = true; 
+
+            currMoves = new List<byte[][]>();
+
+            currTurn = 1;
             currState = GameState.boardSel;
 
             promoteSel = 0;
             promotee = null;
             winner = 0;
 
-            board[2, 6] = new Pawn(0);
-            board[3, 5] = new Pawn(1);
+            /*
+            board[3, 0] = new King(0);
+            board[7, 0] = new Pawn(0);
+            board[6, 2] = new Pawn(1);
+            board[4, 7] = new Rook(1);
+            */
 
-            //board = GetDefault();
+            board = GetDefault();
 
             accountedKeys = new List<Keys>();
         }
@@ -73,8 +92,8 @@ namespace Chess
         {
             // TODO: Add your initialization logic here
 
-            graphics.PreferredBackBufferWidth = (64 * 8);
-            graphics.PreferredBackBufferHeight = (64 * 8);
+            graphics.PreferredBackBufferWidth = (drawSize * board.GetLength(0));
+            graphics.PreferredBackBufferHeight = (drawSize * board.GetLength(1));
             graphics.ApplyChanges();
 
             base.Initialize();
@@ -137,23 +156,37 @@ namespace Chess
                     {
                         if (newKeys.Contains(Keys.A))
                         {
-                            moveSel[0] = (byte)Math.Max(0, moveSel[0] - 1);
-                        }
-                        if (newKeys.Contains(Keys.D))
-                        {
-                            moveSel[0] = (byte)Math.Min(board.GetLength(0) - 1, moveSel[0] + 1);
-                        }
-                        if (newKeys.Contains(Keys.S))
-                        {
-                            moveSel[1] = (byte)Math.Min(board.GetLength(1) - 1, moveSel[1] + 1);
+                            moveSel = (byte)((moveSel + 1) % currMoves.Count);
+                            altSel[0] = (byte)Math.Max(0, altSel[0] - 1);
                         }
                         if (newKeys.Contains(Keys.W))
                         {
-                            moveSel[1] = (byte)Math.Max(0, moveSel[1] - 1);
+                            moveSel = (byte)((moveSel + 1) % currMoves.Count);
+                            altSel[1] = (byte)Math.Min(board.GetLength(1) - 1, altSel[1] + 1);
+                        }
+                        if (newKeys.Contains(Keys.D))
+                        {
+                            moveSel = (byte)((moveSel + currMoves.Count - 1) % currMoves.Count);
+                            altSel[0] = (byte)Math.Min(board.GetLength(0)-1, altSel[0] + 1);
+                        }
+                        if (newKeys.Contains(Keys.S))
+                        {
+                            moveSel = (byte)((moveSel + currMoves.Count - 1) % currMoves.Count);
+                            altSel[1] = (byte)Math.Max(0, altSel[1] - 1);
                         }
                         if (newKeys.Contains(Keys.Enter))
                         {
-                            MoveToChoice();
+                            if (board[currSel[0], currSel[1]].team == currTurn)
+                            {
+                                currMoves = board[currSel[0], currSel[1]].GetSafeMove(board);
+                                if (currMoves != null)
+                                {
+                                    if (currMoves.Count > 0)
+                                    {
+                                        MoveToChoice();
+                                    }
+                                }
+                            }
                         }
                         if (newKeys.Contains(Keys.Escape))
                         {
@@ -165,31 +198,38 @@ namespace Chess
                     {
                         if (newKeys.Contains(Keys.A))
                         {
-                            moveSel[0] = (byte)Math.Max(0, currSel[0] - 1);
                             currSel[0] = (byte)Math.Max(0, currSel[0] - 1);
                         }
                         if (newKeys.Contains(Keys.D))
                         {
-                            moveSel[0] = (byte)Math.Min(board.GetLength(0) - 1, currSel[0] + 1);
                             currSel[0] = (byte)Math.Min(board.GetLength(0) - 1, currSel[0] + 1);
                         }
                         if (newKeys.Contains(Keys.S))
                         {
-                            moveSel[1] = (byte)Math.Min(board.GetLength(1) - 1, currSel[1] + 1);
                             currSel[1] = (byte)Math.Min(board.GetLength(1) - 1, currSel[1] + 1);
                         }
                         if (newKeys.Contains(Keys.W))
                         {
-                            moveSel[1] = (byte)Math.Max(0, currSel[1] - 1);
                             currSel[1] = (byte)Math.Max(0, currSel[1] - 1);
                         }
                         if (newKeys.Contains(Keys.Enter))
                         {
                             if (board[currSel[0], currSel[1]] != null)
                             {
-                                if (board[moveSel[0], moveSel[1]].team == currTurn)
+                                if (board[currSel[0], currSel[1]].team == currTurn)
                                 {
-                                    currState = GameState.boardMove;
+                                    moveSel = 0;
+                                    altSel[0] = currSel[0];
+                                    altSel[1] = currSel[1];
+
+                                    currMoves = board[currSel[0], currSel[1]].GetSafeMove(board);
+                                    if (currMoves != null)
+                                    {
+                                        if (currMoves.Count != 0)
+                                        {
+                                            currState = GameState.boardMove;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -214,64 +254,61 @@ namespace Chess
                         break;
                     }
             }
+            if (newKeys.Contains(Keys.E))
+            {
+                { }
+            }
 
             // TODO: Add your update logic here
 
             base.Update(gameTime);
-        }
+        
+}
 
         void MoveToChoice()
         {
-            List<byte[][]> moves = board[currSel[0], currSel[1]].GetMove(board);
-            for (int i = 0; i < moves.Count; i++)
+            byte[][] move = currMoves[moveSel];
+            for (int i = 0; i < move.GetLength(0); i++)
             {
-                byte[][] curr = moves[i];
-                if (curr[curr.Length - 2][0] == moveSel[0] && curr[curr.Length - 2][1] == moveSel[1])
+                if (move[i][2] == byte.MaxValue && move[i][3] == byte.MaxValue)
                 {
-                    for (int j = 0; j < curr.GetLength(0); j++)
+                    board[move[i][0], move[i][1]] = null;
+                }
+                else if (move[i][2] == byte.MaxValue)
+                {
+                    byte code = (byte)(byte.MaxValue - move[i][3]);
+                    board[move[i][0], move[i][1]] = null;
+                    GameState tempState = board[move[i - 1][0], move[i - 1][1]].Move(board, code);
+                    if (tempState == GameState.prom)
                     {
-                        if (curr[j][2] == byte.MaxValue && curr[j][3] == byte.MaxValue)
-                        {
-                            board[curr[j][0], curr[j][1]] = null;
-                        }
-                        else if (curr[j][2] == byte.MaxValue)
-                        {
-                            byte code = (byte)(byte.MaxValue - curr[j][3]);
-                            board[curr[j][0], curr[j][1]] = null;
-                            GameState tempState = board[curr[j - 1][0], curr[j - 1][1]].Move(board, code);
-                            if (tempState == GameState.prom)
-                            {
-                                promotee = board[curr[j - 1][0], curr[j - 1][1]];
-                                promoteSel = 0;
-                                currState = tempState;
-                            }
-                        }
-                        else
-                        {
-                            board[curr[j][0], curr[j][1]] = board[curr[j][2], curr[j][3]];
-                        }
+                        promotee = board[move[i - 1][0], move[i - 1][1]];
+                        promoteSel = 0;
+                        currState = tempState;
                     }
-                    currSel[0] = moveSel[0];
-                    currSel[1] = moveSel[1];
-                    if (currState != GameState.prom)
+                }
+                else if (move[i][2] == byte.MaxValue - 1)
+                {
+                    board[move[i][0], move[i][1]] = null;
+                }
+                else
+                {
+                    board[move[i][0], move[i][1]] = board[move[i][2], move[i][3]];
+                }
+            }
+            if (currState != GameState.prom)
+            {
+                currTurn = (byte)((currTurn + 1) % 2);
+                currState = GameState.boardSel;
+            }
+
+            for (int x = 0; x < board.GetLength(0); x++)
+            {
+                for (int y = 0; y < board.GetLength(1); y++)
+                {
+                    if (board[x, y] != null)
                     {
-                        currTurn = (byte)((currTurn + 1) % 2);
-                        currState = GameState.boardSel;
+                        board[x, y].Update();
                     }
-
-                    for (int x = 0; x < board.GetLength(0); x++)
-                    {
-                        for (int y = 0; y < board.GetLength(1); y++)
-                        {
-                            if (board[x, y] != null)
-                            {
-                                board[x, y].Update();
-                            }
-                        }
-                    }
-
-
-                    break;
                 }
             }
         }
@@ -291,18 +328,20 @@ namespace Chess
                     {
                         PrintBoard();
                         PrintPieces();
-                        PrintMovement(currSel[0], currSel[1]);
+                        PrintMovement(currSel[0],currSel[1]);
                         PrintSel("selected");
                         break;
                     }
                 case GameState.boardMove:
                     {
+
                         PrintBoard();
                         PrintPieces();
-                        PrintMovement(currSel[0], currSel[1]);
+                        PrintMove();
                         PrintSel("choice");
-                        PrintMove("selected");
+                        PrintMove();
                         break;
+
                     }
                 case GameState.prom:
                     {
@@ -320,17 +359,49 @@ namespace Chess
 
         }
 
-        void PrintMove(String file)
+        void PrintMove()
         { 
-            Texture2D tex = Content.Load<Texture2D>(file);
-        Rectangle rect = new Rectangle(new Point(moveSel[0] * 64, moveSel[1] * 64), new Point(64, 64));
-        spriteBatch.Draw(tex, rect, Color.White);
+            if (currMoves == null)
+            {
+                return;
+            }
+            else if (currMoves.Count == 0)
+            {
+                return;
+            }
+            for (int i = 0; i < currMoves[moveSel].Length; i++)
+            {
+                if (currMoves[moveSel][i][3] == byte.MaxValue)
+                {
+                    Texture2D tex = Content.Load<Texture2D>("captureable");
+                    Rectangle rect = new Rectangle(new Point(currMoves[moveSel][i][0] * drawSize, currMoves[moveSel][i][1] * drawSize), new Point(drawSize, drawSize));
+                    spriteBatch.Draw(tex, rect, Color.White);
+                }
+                else if (currMoves[moveSel][i][2] == byte.MaxValue - 1)
+                {
+                    Texture2D tex = Content.Load<Texture2D>("captureable");
+                    Rectangle rect = new Rectangle(new Point(currMoves[moveSel][i][0] * drawSize, currMoves[moveSel][i][1] * drawSize), new Point(drawSize, drawSize));
+                    spriteBatch.Draw(tex, rect, Color.White);
+                }
+                else if (currMoves[moveSel][i][2] == byte.MaxValue)
+                {
+                    Texture2D tex = Content.Load<Texture2D>("choice");
+                    Rectangle rect = new Rectangle(new Point(currMoves[moveSel][i][0] * drawSize, currMoves[moveSel][i][1] * drawSize), new Point(drawSize, drawSize));
+                    spriteBatch.Draw(tex, rect, Color.White);
+                }
+                else
+                {
+                    Texture2D tex = Content.Load<Texture2D>("moveable");
+                    Rectangle rect = new Rectangle(new Point(currMoves[moveSel][i][0] * drawSize, currMoves[moveSel][i][1] * drawSize), new Point(drawSize, drawSize));
+                    spriteBatch.Draw(tex, rect, Color.White);
+                }
+            }
         }
 
         void PrintSel(String file)
         {
             Texture2D tex = Content.Load<Texture2D>(file);
-            Rectangle rect = new Rectangle(new Point(currSel[0] * 64, currSel[1] * 64), new Point(64, 64));
+            Rectangle rect = new Rectangle(new Point(currSel[0] * drawSize, currSel[1] * drawSize), new Point(drawSize, drawSize));
             spriteBatch.Draw(tex, rect, Color.White);
         }
 
@@ -344,7 +415,7 @@ namespace Chess
                 for (int y = 0; y < board.GetLength(1); y++)
                 {
                     tex = Content.Load<Texture2D>("empty_" + ((x + y) % 2));
-                    rect = new Rectangle(new Point(x * 64, y * 64), new Point(64, 64));
+                    rect = new Rectangle(new Point(x * drawSize, y * drawSize), new Point(drawSize, drawSize));
                     spriteBatch.Draw(tex, rect, Color.White);
                 }
             }
@@ -362,13 +433,14 @@ namespace Chess
                     if (board[x,y] != null)
                     {
                         tex = Content.Load<Texture2D>(board[x,y].tile);
-                        rect = new Rectangle(new Point(x * 64, y * 64), new Point(64, 64));
+                        rect = new Rectangle(new Point(x * drawSize, y * drawSize), new Point(drawSize, drawSize));
                         spriteBatch.Draw(tex, rect, Color.White);
                     }
                 }
             }
         }
 
+        
         void PrintMovement(byte x, byte y)
         {
             Texture2D tex;
@@ -390,23 +462,30 @@ namespace Chess
                         if (curr[j][2] == byte.MaxValue && curr[j][3] == byte.MaxValue)
                         {
                             tex = Content.Load<Texture2D>("captureable");
-                            rect = new Rectangle(new Point(curr[j][0] * 64, curr[j][1] * 64), new Point(64, 64));
+                            rect = new Rectangle(new Point(curr[j][0] * drawSize, curr[j][1] * drawSize), new Point(drawSize, drawSize));
                             spriteBatch.Draw(tex, rect, Color.White);
                         }
                         else if (curr[j][2] == byte.MaxValue)
                         {
                             continue;
                         }
+                        else if (curr[j][2] == byte.MaxValue-1)
+                        {
+                            tex = Content.Load<Texture2D>("castle");
+                            rect = new Rectangle(new Point(curr[j][0] * drawSize, curr[j][1] * drawSize), new Point(drawSize, drawSize));
+                            spriteBatch.Draw(tex, rect, Color.White);
+                        }
                         else
                         {
                             tex = Content.Load<Texture2D>("moveable");
-                            rect = new Rectangle(new Point(curr[j][0] * 64, curr[j][1] * 64), new Point(64, 64));
+                            rect = new Rectangle(new Point(curr[j][0] * drawSize, curr[j][1] * drawSize), new Point(drawSize, drawSize));
                             spriteBatch.Draw(tex, rect, Color.White);
                         }
                     }
                 }
             }
         }
+        
 
         void PrintPromote()
         {
@@ -422,11 +501,11 @@ namespace Chess
                 ConstructorInfo ci = prom[i].GetConstructor(new Type[] { typeof(byte) });
                 Piece p = (Piece)(ci.Invoke(new object[] { currTurn }));
                 tex = Content.Load<Texture2D>(p.tile);
-                rect = new Rectangle(new Point(middleX - (prom.Count * 32) + (i * 64), middleY-32), new Point(64, 64));
+                rect = new Rectangle(new Point(middleX - (prom.Count * 32) + (i * drawSize), middleY-32), new Point(drawSize, drawSize));
                 spriteBatch.Draw(tex, rect, Color.White);
             }
             tex = Content.Load<Texture2D>("selected");
-            rect = new Rectangle(new Point(middleX - (prom.Count * 32) + (promoteSel * 64), middleY - 32), new Point(64, 64));
+            rect = new Rectangle(new Point(middleX - (prom.Count * 32) + (promoteSel * drawSize), middleY - 32), new Point(drawSize, drawSize));
             spriteBatch.Draw(tex, rect, Color.White);
         }
 
@@ -463,7 +542,7 @@ namespace Chess
                     {
                         if (copy[x,y].team != te)
                         {
-                            List<byte[][]> moveSet = copy[x, y].GetMove(copy);
+                            List<byte[][]> moveSet = copy[x, y].GetAttack(copy);
                             for (int i = 0; i < moveSet.Count; i++)
                             {
                                 for (int j = 0; j < moveSet[i].Length; j++)
@@ -484,26 +563,6 @@ namespace Chess
         internal static bool CanGetKingOutOfCheck()
         {
             return false;
-        }
-
-        internal static bool[,] ORAll(bool[,] one, bool[,] two)
-        {
-            bool[,] three = new bool[one.GetLength(0), two.GetLength(1)];
-            for (int i = 0; i < one.GetLength(0); i++)
-            {
-                for (int j = 0; j < one.GetLength(1); j++)
-                {
-                    three[i, j] = (one[i, j] || two[i, j]);
-                }
-            }
-            return three;
-        }
-
-        internal static bool[,] AllMovesFromTeam(int te, Piece[,] copy)
-        {
-            bool[,] all = new bool[copy.GetLength(0), copy.GetLength(1)];
-
-            return all;
         }
 
         internal static Piece[,] CopyBoard(Piece[,] copy)

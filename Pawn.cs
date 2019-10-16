@@ -44,7 +44,7 @@ namespace Chess
                     if (board[tempPos[0], tempPos[1]] == null)
                     {
                         byte[][] move = new byte[2][];
-                        move[0] = new byte[] { tempPos[0], tempPos[1] , pos[0], pos[1] };
+                        move[0] = new byte[] { tempPos[0], tempPos[1], pos[0], pos[1] };
                         move[1] = new byte[] { pos[0], pos[1], byte.MaxValue, (byte)(byte.MaxValue - i) };
                         moves.Add(move);
                     }
@@ -71,7 +71,7 @@ namespace Chess
                             byte[][] move = new byte[3][];
                             move[0] = new byte[] { tempPos[0], tempPos[1], byte.MaxValue, byte.MaxValue };
                             move[1] = new byte[] { tempPos[0], tempPos[1], pos[0], pos[1] };
-                            move[2] = new byte[] { pos[0], pos[1], byte.MaxValue, byte.MaxValue-1 };
+                            move[2] = new byte[] { pos[0], pos[1], byte.MaxValue, byte.MaxValue - 1 };
                             moves.Add(move);
                         }
                     }
@@ -117,7 +117,41 @@ namespace Chess
                     }
                 }
             }
-            
+
+            return moves;
+        }
+
+        public override List<byte[][]> GetAttack(Piece[,] board)
+        {
+            List<byte[][]> moves = new List<byte[][]>();
+            byte[] pos = GetPos(board);
+
+            sbyte sign = (sbyte)((((team + 1) % 2) * 2) - 1);
+            sbyte[] vec = { (sbyte)(sign * (team / 2)), (sbyte)((((team / 2) + 1) % 2) * sign) };
+
+            // Check if can capture
+            for (int i = -1; i < 2; i += 2)
+            {
+                byte[] tempPos = { (byte)(pos[0] + vec[0]), (byte)(pos[1] + vec[1]) };
+                tempPos[0] += (byte)(((vec[0] + 1) % 2) * i);
+                tempPos[1] += (byte)(((vec[1] + 1) % 2) * i);
+
+                if (0 <= tempPos[0] && tempPos[0] < board.GetLength(0) && 0 <= tempPos[1] && tempPos[1] < board.GetLength(1))
+                {
+                    if (board[tempPos[0], tempPos[1]] != null)
+                    {
+                        if (board[tempPos[0], tempPos[1]].team != this.team)
+                        {
+                            byte[][] move = new byte[3][];
+                            move[0] = new byte[] { tempPos[0], tempPos[1], byte.MaxValue, byte.MaxValue };
+                            move[1] = new byte[] { tempPos[0], tempPos[1], pos[0], pos[1] };
+                            move[2] = new byte[] { pos[0], pos[1], byte.MaxValue, byte.MaxValue - 1 };
+                            moves.Add(move);
+                        }
+                    }
+                }
+            }
+
             return moves;
         }
 
