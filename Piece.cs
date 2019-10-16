@@ -42,6 +42,10 @@ namespace Chess
                     {
                         copy[curr[i][0], curr[i][1]] = null;
                     }
+                    else if (curr[i][2] == byte.MaxValue-1)
+                    {
+                        copy[curr[i][0], curr[i][1]] = null;
+                    }
                     else
                     {
                         copy[curr[i][0], curr[i][1]] = copy[curr[i][2], curr[i][3]];

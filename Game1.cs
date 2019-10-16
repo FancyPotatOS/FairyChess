@@ -69,21 +69,18 @@ namespace Chess
 
             currMoves = new List<byte[][]>();
 
-            currTurn = 1;
+            currTurn = 0;
             currState = GameState.boardSel;
 
             promoteSel = 0;
             promotee = null;
             winner = 0;
-
-            /*
+            
             board[3, 0] = new King(0);
-            board[7, 0] = new Pawn(0);
-            board[6, 2] = new Pawn(1);
-            board[4, 7] = new Rook(1);
-            */
+            board[3, 7] = new Rook(1);
+            board[7, 0] = new Rook(0);
 
-            board = GetDefault();
+            //board = GetDefault();
 
             accountedKeys = new List<Keys>();
         }
@@ -596,10 +593,11 @@ namespace Chess
                 b[((int)(i / 2)) * 3 + 2, ((int)(i % 2)) * 7] = new Bishop((byte)(i % 2));
             }
 
-            b[3, 0] = new King(0);
-            b[4, 0] = new Queen(0);
-            b[3, 7] = new King(1);
-            b[4, 7] = new Queen(1);
+            for (byte i = 0; i < 2; i++)
+            {
+                b[3, (i * 7)] = new King(i);
+                b[4, (i*7)] = new Queen(i);
+            }
 
             // Pawns
             for (int i = 0; i < 16; i++)
