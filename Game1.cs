@@ -30,14 +30,12 @@ namespace Chess
         SpriteBatch spriteBatch;
         readonly Piece[,] board;
 
-        readonly static int drawSize = 64;
-        readonly static int boardSize = 8;
+        readonly static int DRAWSIZE = 64;
+        readonly static int BOARDSIZE = 4;
         
 
         List<byte[][]> currMoves;
         byte moveSel;
-        bool selType;
-        byte[] altSel;
         readonly byte[] currSel;
 
         byte currTurn;
@@ -60,12 +58,10 @@ namespace Chess
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            board = new Piece[boardSize, boardSize];
+            board = new Piece[BOARDSIZE, BOARDSIZE+1];
             currSel = new byte[] { 0, 0 };
 
             moveSel = 0;
-            altSel = new byte[] { 0, 0 };
-            selType = true; 
 
             currMoves = new List<byte[][]>();
 
@@ -76,11 +72,7 @@ namespace Chess
             promotee = null;
             winner = 0;
             
-            board[3, 0] = new King(0);
-            board[3, 7] = new Rook(1);
-            board[7, 0] = new Rook(0);
-
-            //board = GetDefault();
+            board = GetDefault();
 
             accountedKeys = new List<Keys>();
         }
@@ -89,8 +81,8 @@ namespace Chess
         {
             // TODO: Add your initialization logic here
 
-            graphics.PreferredBackBufferWidth = (drawSize * board.GetLength(0));
-            graphics.PreferredBackBufferHeight = (drawSize * board.GetLength(1));
+            graphics.PreferredBackBufferWidth = (DRAWSIZE * board.GetLength(0));
+            graphics.PreferredBackBufferHeight = (DRAWSIZE * board.GetLength(1));
             graphics.ApplyChanges();
 
             base.Initialize();
@@ -154,22 +146,18 @@ namespace Chess
                         if (newKeys.Contains(Keys.A))
                         {
                             moveSel = (byte)((moveSel + 1) % currMoves.Count);
-                            altSel[0] = (byte)Math.Max(0, altSel[0] - 1);
                         }
                         if (newKeys.Contains(Keys.W))
                         {
                             moveSel = (byte)((moveSel + 1) % currMoves.Count);
-                            altSel[1] = (byte)Math.Min(board.GetLength(1) - 1, altSel[1] + 1);
                         }
                         if (newKeys.Contains(Keys.D))
                         {
                             moveSel = (byte)((moveSel + currMoves.Count - 1) % currMoves.Count);
-                            altSel[0] = (byte)Math.Min(board.GetLength(0)-1, altSel[0] + 1);
                         }
                         if (newKeys.Contains(Keys.S))
                         {
                             moveSel = (byte)((moveSel + currMoves.Count - 1) % currMoves.Count);
-                            altSel[1] = (byte)Math.Max(0, altSel[1] - 1);
                         }
                         if (newKeys.Contains(Keys.Enter))
                         {
@@ -216,8 +204,6 @@ namespace Chess
                                 if (board[currSel[0], currSel[1]].team == currTurn)
                                 {
                                     moveSel = 0;
-                                    altSel[0] = currSel[0];
-                                    altSel[1] = currSel[1];
 
                                     currMoves = board[currSel[0], currSel[1]].GetSafeMove(board);
                                     if (currMoves != null)
@@ -371,25 +357,25 @@ namespace Chess
                 if (currMoves[moveSel][i][3] == byte.MaxValue)
                 {
                     Texture2D tex = Content.Load<Texture2D>("captureable");
-                    Rectangle rect = new Rectangle(new Point(currMoves[moveSel][i][0] * drawSize, currMoves[moveSel][i][1] * drawSize), new Point(drawSize, drawSize));
+                    Rectangle rect = new Rectangle(new Point(currMoves[moveSel][i][0] * DRAWSIZE, currMoves[moveSel][i][1] * DRAWSIZE), new Point(DRAWSIZE, DRAWSIZE));
                     spriteBatch.Draw(tex, rect, Color.White);
                 }
                 else if (currMoves[moveSel][i][2] == byte.MaxValue - 1)
                 {
                     Texture2D tex = Content.Load<Texture2D>("captureable");
-                    Rectangle rect = new Rectangle(new Point(currMoves[moveSel][i][0] * drawSize, currMoves[moveSel][i][1] * drawSize), new Point(drawSize, drawSize));
+                    Rectangle rect = new Rectangle(new Point(currMoves[moveSel][i][0] * DRAWSIZE, currMoves[moveSel][i][1] * DRAWSIZE), new Point(DRAWSIZE, DRAWSIZE));
                     spriteBatch.Draw(tex, rect, Color.White);
                 }
                 else if (currMoves[moveSel][i][2] == byte.MaxValue)
                 {
                     Texture2D tex = Content.Load<Texture2D>("choice");
-                    Rectangle rect = new Rectangle(new Point(currMoves[moveSel][i][0] * drawSize, currMoves[moveSel][i][1] * drawSize), new Point(drawSize, drawSize));
+                    Rectangle rect = new Rectangle(new Point(currMoves[moveSel][i][0] * DRAWSIZE, currMoves[moveSel][i][1] * DRAWSIZE), new Point(DRAWSIZE, DRAWSIZE));
                     spriteBatch.Draw(tex, rect, Color.White);
                 }
                 else
                 {
                     Texture2D tex = Content.Load<Texture2D>("moveable");
-                    Rectangle rect = new Rectangle(new Point(currMoves[moveSel][i][0] * drawSize, currMoves[moveSel][i][1] * drawSize), new Point(drawSize, drawSize));
+                    Rectangle rect = new Rectangle(new Point(currMoves[moveSel][i][0] * DRAWSIZE, currMoves[moveSel][i][1] * DRAWSIZE), new Point(DRAWSIZE, DRAWSIZE));
                     spriteBatch.Draw(tex, rect, Color.White);
                 }
             }
@@ -398,7 +384,7 @@ namespace Chess
         void PrintSel(String file)
         {
             Texture2D tex = Content.Load<Texture2D>(file);
-            Rectangle rect = new Rectangle(new Point(currSel[0] * drawSize, currSel[1] * drawSize), new Point(drawSize, drawSize));
+            Rectangle rect = new Rectangle(new Point(currSel[0] * DRAWSIZE, currSel[1] * DRAWSIZE), new Point(DRAWSIZE, DRAWSIZE));
             spriteBatch.Draw(tex, rect, Color.White);
         }
 
@@ -412,7 +398,7 @@ namespace Chess
                 for (int y = 0; y < board.GetLength(1); y++)
                 {
                     tex = Content.Load<Texture2D>("empty_" + ((x + y) % 2));
-                    rect = new Rectangle(new Point(x * drawSize, y * drawSize), new Point(drawSize, drawSize));
+                    rect = new Rectangle(new Point(x * DRAWSIZE, y * DRAWSIZE), new Point(DRAWSIZE, DRAWSIZE));
                     spriteBatch.Draw(tex, rect, Color.White);
                 }
             }
@@ -430,7 +416,7 @@ namespace Chess
                     if (board[x,y] != null)
                     {
                         tex = Content.Load<Texture2D>(board[x,y].tile);
-                        rect = new Rectangle(new Point(x * drawSize, y * drawSize), new Point(drawSize, drawSize));
+                        rect = new Rectangle(new Point(x * DRAWSIZE, y * DRAWSIZE), new Point(DRAWSIZE, DRAWSIZE));
                         spriteBatch.Draw(tex, rect, Color.White);
                     }
                 }
@@ -459,7 +445,7 @@ namespace Chess
                         if (curr[j][2] == byte.MaxValue && curr[j][3] == byte.MaxValue)
                         {
                             tex = Content.Load<Texture2D>("captureable");
-                            rect = new Rectangle(new Point(curr[j][0] * drawSize, curr[j][1] * drawSize), new Point(drawSize, drawSize));
+                            rect = new Rectangle(new Point(curr[j][0] * DRAWSIZE, curr[j][1] * DRAWSIZE), new Point(DRAWSIZE, DRAWSIZE));
                             spriteBatch.Draw(tex, rect, Color.White);
                         }
                         else if (curr[j][2] == byte.MaxValue)
@@ -469,13 +455,13 @@ namespace Chess
                         else if (curr[j][2] == byte.MaxValue-1)
                         {
                             tex = Content.Load<Texture2D>("castle");
-                            rect = new Rectangle(new Point(curr[j][0] * drawSize, curr[j][1] * drawSize), new Point(drawSize, drawSize));
+                            rect = new Rectangle(new Point(curr[j][0] * DRAWSIZE, curr[j][1] * DRAWSIZE), new Point(DRAWSIZE, DRAWSIZE));
                             spriteBatch.Draw(tex, rect, Color.White);
                         }
                         else
                         {
                             tex = Content.Load<Texture2D>("moveable");
-                            rect = new Rectangle(new Point(curr[j][0] * drawSize, curr[j][1] * drawSize), new Point(drawSize, drawSize));
+                            rect = new Rectangle(new Point(curr[j][0] * DRAWSIZE, curr[j][1] * DRAWSIZE), new Point(DRAWSIZE, DRAWSIZE));
                             spriteBatch.Draw(tex, rect, Color.White);
                         }
                     }
@@ -498,11 +484,11 @@ namespace Chess
                 ConstructorInfo ci = prom[i].GetConstructor(new Type[] { typeof(byte) });
                 Piece p = (Piece)(ci.Invoke(new object[] { currTurn }));
                 tex = Content.Load<Texture2D>(p.tile);
-                rect = new Rectangle(new Point(middleX - (prom.Count * 32) + (i * drawSize), middleY-32), new Point(drawSize, drawSize));
+                rect = new Rectangle(new Point(middleX - (prom.Count * 32) + (i * DRAWSIZE), middleY-32), new Point(DRAWSIZE, DRAWSIZE));
                 spriteBatch.Draw(tex, rect, Color.White);
             }
             tex = Content.Load<Texture2D>("selected");
-            rect = new Rectangle(new Point(middleX - (prom.Count * 32) + (promoteSel * drawSize), middleY - 32), new Point(drawSize, drawSize));
+            rect = new Rectangle(new Point(middleX - (prom.Count * 32) + (promoteSel * DRAWSIZE), middleY - 32), new Point(DRAWSIZE, DRAWSIZE));
             spriteBatch.Draw(tex, rect, Color.White);
         }
 
@@ -510,7 +496,7 @@ namespace Chess
         {
             for (byte i = 0; i < copy.GetLength(0); i++)
             {
-                for (byte j = 0; j < copy.GetLength(0); j++)
+                for (byte j = 0; j < copy.GetLength(1); j++)
                 {
                     if (copy[i,j] != null)
                     {
