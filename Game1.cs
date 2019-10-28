@@ -30,8 +30,8 @@ namespace Chess
         SpriteBatch spriteBatch;
         readonly Piece[,] board;
 
-        readonly static int DRAWSIZE = 64;
-        readonly static int BOARDSIZE = 4;
+        readonly static int DRAWSIZE = 54;
+        readonly static int BOARDSIZE = 16;
         
 
         List<byte[][]> currMoves;
@@ -65,14 +65,20 @@ namespace Chess
 
             currMoves = new List<byte[][]>();
 
-            currTurn = 0;
+            currTurn = 1;
             currState = GameState.boardSel;
 
             promoteSel = 0;
             promotee = null;
             winner = 0;
-            
-            board = GetDefault();
+
+            //board = GetDefault();
+
+            board[2, 13] = new Centurion(0);
+            board[3, 14] = new Queen(1);
+            board[2, 14] = new Queen(1);
+            board[1, 14] = new Queen(1);
+            board[3, 10] = new Queen(1);
 
             accountedKeys = new List<Keys>();
         }
@@ -222,11 +228,11 @@ namespace Chess
                     {
                         if (newKeys.Contains(Keys.A))
                         {
-                            promoteSel = (byte)Math.Max(0, promoteSel - 1);
+                            promoteSel = (byte)((promoteSel + promotee.prom.Count - 1) % promotee.prom.Count);
                         }
                         if (newKeys.Contains(Keys.D))
                         {
-                            promoteSel = (byte)Math.Min(promoteSel + 1, promotee.prom.Count - 1);
+                            promoteSel = (byte)((promoteSel + 1) % promotee.prom.Count);
                         }
                         if (newKeys.Contains(Keys.Enter))
                         {

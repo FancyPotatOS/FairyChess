@@ -3,25 +3,16 @@ using System;
 
 namespace Chess
 {
-    class Pawn : Piece
+    class Centurion : Pawn
     {
 
-        bool hasMoved;
-        public bool movedTwice;
-        public bool skipMoveTwice;
-
-        public Pawn(byte t) : base(t)
+        public Centurion(byte t) : base(t)
         {
-            tile = "pawn_" + t;
-            hasMoved = false;
-            movedTwice = false;
-            skipMoveTwice = false;
-
-
+            tile = "centurion_" + t;
+            prom.Clear();
             prom.Insert(0, typeof(Queen));
-            prom.Insert(0, typeof(Knight));
-            prom.Insert(0, typeof(Rook));
-            prom.Insert(0, typeof(Bishop));
+            //prom.Insert(0, typeof(Lion));
+            //prom.Insert(0, typeof(Gryphon));
         }
 
         public override List<byte[][]> GetMove(Piece[,] board)
@@ -35,7 +26,6 @@ namespace Chess
             // Move one, then two
             for (int i = 1; i < 3; i++)
             {
-                if (i == 2 && hasMoved) { continue; }
 
                 byte[] tempPos = { (byte)(pos[0] + (vec[0] * i)), (byte)(pos[1] + (vec[1] * i)) };
                 if (0 <= tempPos[0] && tempPos[0] < board.GetLength(0) && 0 <= tempPos[1] && tempPos[1] < board.GetLength(1))
@@ -74,6 +64,13 @@ namespace Chess
                             move[2] = new byte[] { pos[0], pos[1], byte.MaxValue, byte.MaxValue - 1 };
                             moves.Add(move);
                         }
+                    }
+                    else
+                    {
+                        byte[][] move = new byte[2][];
+                        move[0] = new byte[] { tempPos[0], tempPos[1], pos[0], pos[1] };
+                        move[1] = new byte[] { pos[0], pos[1], byte.MaxValue, byte.MaxValue - 1 };
+                        moves.Add(move);
                     }
                 }
             }
@@ -169,7 +166,6 @@ namespace Chess
 
         public override Game1.GameState Move(Piece[,] board, int code)
         {
-            hasMoved = true;
             if (code == 2)
             {
                 movedTwice = true;
@@ -188,7 +184,7 @@ namespace Chess
             }
             else
             {
-                byte supposeY = (byte)(((((byte)(team / 2)) + 1) % 2) * (((team % 2) + 1) % 2) * (board.GetLength(1)-1));
+                byte supposeY = (byte)(((((byte)(team / 2)) + 1) % 2) * (((team % 2) + 1) % 2) * (board.GetLength(1) - 1));
                 if (supposeY == currPos[1])
                 {
                     listening = true;

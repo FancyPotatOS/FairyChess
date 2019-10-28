@@ -3,25 +3,13 @@ using System;
 
 namespace Chess
 {
-    class Pawn : Piece
+    class FairyPawn : Pawn
     {
 
-        bool hasMoved;
-        public bool movedTwice;
-        public bool skipMoveTwice;
-
-        public Pawn(byte t) : base(t)
+        public FairyPawn(byte t) : base(t)
         {
-            tile = "pawn_" + t;
-            hasMoved = false;
-            movedTwice = false;
-            skipMoveTwice = false;
-
-
-            prom.Insert(0, typeof(Queen));
-            prom.Insert(0, typeof(Knight));
-            prom.Insert(0, typeof(Rook));
-            prom.Insert(0, typeof(Bishop));
+            prom.Clear();
+            //prom.Insert(0, typeof(Unicorn));
         }
 
         public override List<byte[][]> GetMove(Piece[,] board)
@@ -35,7 +23,6 @@ namespace Chess
             // Move one, then two
             for (int i = 1; i < 3; i++)
             {
-                if (i == 2 && hasMoved) { continue; }
 
                 byte[] tempPos = { (byte)(pos[0] + (vec[0] * i)), (byte)(pos[1] + (vec[1] * i)) };
                 if (0 <= tempPos[0] && tempPos[0] < board.GetLength(0) && 0 <= tempPos[1] && tempPos[1] < board.GetLength(1))
@@ -169,7 +156,6 @@ namespace Chess
 
         public override Game1.GameState Move(Piece[,] board, int code)
         {
-            hasMoved = true;
             if (code == 2)
             {
                 movedTwice = true;
@@ -188,7 +174,7 @@ namespace Chess
             }
             else
             {
-                byte supposeY = (byte)(((((byte)(team / 2)) + 1) % 2) * (((team % 2) + 1) % 2) * (board.GetLength(1)-1));
+                byte supposeY = (byte)(((((byte)(team / 2)) + 1) % 2) * (((team % 2) + 1) % 2) * (board.GetLength(1) - 1));
                 if (supposeY == currPos[1])
                 {
                     listening = true;

@@ -2,8 +2,10 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/bishop_0.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/bishop_0.xnb","TextureProcessor","Texture2DContent",461,4181,0.775761
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/bishop_1.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/bishop_1.xnb","TextureProcessor","Texture2DContent",731,4181,0
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/blank.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/blank.xnb","TextureProcessor","Texture2DContent",386,4181,0.1358717
-"C:/Users/FancyPotatOS/source/repos/Chess/Content/captureable.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/captureable.xnb","TextureProcessor","Texture2DContent",361,4181,0.766205
+"C:/Users/FancyPotatOS/source/repos/Chess/Content/captureable.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/captureable.xnb","TextureProcessor","Texture2DContent",361,4181,0.4942141
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/castle.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/castle.xnb","TextureProcessor","Texture2DContent",280,4181,0.150109
+"C:/Users/FancyPotatOS/source/repos/Chess/Content/centurion_0.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/centurion_0.xnb","TextureProcessor","Texture2DContent",534,4181,0.0119347
+"C:/Users/FancyPotatOS/source/repos/Chess/Content/centurion_1.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/centurion_1.xnb","TextureProcessor","Texture2DContent",552,4181,0.0120023
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/choice.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/choice.xnb","TextureProcessor","Texture2DContent",392,4181,0.1515739
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/empty_0.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/empty_0.xnb","TextureProcessor","Texture2DContent",496,4181,0.015597
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/empty_1.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/empty_1.xnb","TextureProcessor","Texture2DContent",527,4181,0.0156204

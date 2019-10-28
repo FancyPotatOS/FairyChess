@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/FancyPotatOS/source/repos/Chess/Content/captureable.png</SourceFile>
-  <SourceTime>2019-10-12T02:33:09.6022695-03:00</SourceTime>
-  <DestFile>C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/captureable.xnb</DestFile>
-  <DestTime>2019-10-17T15:20:44.6501004-03:00</DestTime>
+  <SourceFile>C:/Users/FancyPotatOS/source/repos/Chess/Content/centurion_1.png</SourceFile>
+  <SourceTime>2019-10-17T15:20:16.7290906-03:00</SourceTime>
+  <DestFile>C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/Content/centurion_1.xnb</DestFile>
+  <DestTime>2019-10-17T15:20:52.5616156-03:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T12:35:54-04:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
