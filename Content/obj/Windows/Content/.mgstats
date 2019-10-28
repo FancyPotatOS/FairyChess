@@ -2,6 +2,8 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/bishop_0.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/Content/bishop_0.xnb","TextureProcessor","Texture2DContent",461,4181,0.1446667
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/bishop_1.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/Content/bishop_1.xnb","TextureProcessor","Texture2DContent",731,4181,0.0156588
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/blank.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/Content/blank.xnb","TextureProcessor","Texture2DContent",386,4181,0.1256972
+"C:/Users/FancyPotatOS/source/repos/Chess/Content/buffoon_0.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/Content/buffoon_0.xnb","TextureProcessor","Texture2DContent",530,4181,0.129654
+"C:/Users/FancyPotatOS/source/repos/Chess/Content/buffoon_1.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/Content/buffoon_1.xnb","TextureProcessor","Texture2DContent",529,4181,0.0090229
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/captureable.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/Content/captureable.xnb","TextureProcessor","Texture2DContent",361,4181,0.6931927
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/castle.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/Content/castle.xnb","TextureProcessor","Texture2DContent",280,4181,0.1426176
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/centurion_0.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/Content/centurion_0.xnb","TextureProcessor","Texture2DContent",534,4181,0.121674

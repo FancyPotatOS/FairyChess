@@ -103,5 +103,24 @@ namespace Chess
             return null;
         }
 
+        public bool CanMove(int x, int y, Piece[,] board)
+        {
+            byte[] pos = GetPos(board);
+            List<byte[][]> moves = GetMove(board);
+
+            foreach (byte[][] i in moves)
+            {
+                for(int j = 0; j < i.Length; j++)
+                {
+                    if (i[j][0] == pos[0] && i[j][1] == pos[1])
+                    {
+                        return true;
+                    }
+
+                }
+            }
+            return false;
+        }
+
     }
 }
