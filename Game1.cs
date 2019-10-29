@@ -75,7 +75,7 @@ namespace Chess
 
             currTurn = 1;
             currState = GameState.boardSel;
-            currMType = MoveType.list;
+            currMType = MoveType.free;
 
             promoteSel = 0;
             promotee = null;
@@ -83,11 +83,12 @@ namespace Chess
 
             //board = GetDefault();
 
-            board[2, 13] = new Centurion(0);
-            board[3, 14] = new Queen(1);
-            board[2, 14] = new Queen(1);
-            board[1, 14] = new Queen(1);
-            board[3, 10] = new Queen(1);
+            board[4, 8] = new Buffoon(1);
+            board[5, 8] = new King(1);
+            board[6, 8] = new Centurion(1);
+            board[4, 5] = new Buffoon(0);
+            board[5, 5] = new King(0);
+            board[6, 5] = new Centurion(0);
 
             accountedKeys = new List<Keys>();
         }
@@ -209,10 +210,6 @@ namespace Chess
                                     }
                                 }
                             }
-                            if (newKeys.Contains(Keys.Escape))
-                            {
-                                currState = GameState.boardSel;
-                            }
                         }
                         else if (currMType == MoveType.free)
                         {
@@ -258,6 +255,10 @@ namespace Chess
                                     }
                                 }
                             }
+                        }
+                        if (newKeys.Contains(Keys.Escape))
+                        {
+                            currState = GameState.boardSel;
                         }
                         break;
                     }
