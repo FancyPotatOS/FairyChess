@@ -23,6 +23,8 @@
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/king_1.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/knight_0.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/knight_1.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/lion_0.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/lion_1.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/machine_0.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/machine_1.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/moveable.png</File>
@@ -39,6 +41,8 @@
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/won_1.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
