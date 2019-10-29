@@ -82,9 +82,11 @@ namespace Chess
             winner = 0;
 
             //board = GetDefault();
-            
-            board[4, 8] = new Elephant(1);
-            board[6, 8] = new Elephant(0);
+
+            board[4, 8] = new Machine(1);
+            board[6, 8] = new Machine(0);
+            board[4, 9] = new Elephant(1);
+            board[6, 9] = new Elephant(0);
 
             accountedKeys = new List<Keys>();
         }
