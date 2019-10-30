@@ -42,10 +42,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Buffoon.cs" />
+    <Compile Include="Camel.cs" />
     <Compile Include="Centurion.cs" />
     <Compile Include="Elephant.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Bishop.cs" />
+    <Compile Include="Gryphon.cs" />
     <Compile Include="King.cs" />
     <Compile Include="FairyPawn.cs" />
     <Compile Include="Lion.cs" />
@@ -57,6 +59,7 @@
     <Compile Include="Knight.cs" />
     <Compile Include="Queen.cs" />
     <Compile Include="Rook.cs" />
+    <Compile Include="Ship.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

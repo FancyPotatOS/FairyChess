@@ -11,8 +11,8 @@ namespace Chess
             tile = "centurion_" + t;
             prom.Clear();
             prom.Insert(0, typeof(Queen));
-            //prom.Insert(0, typeof(Lion));
-            //prom.Insert(0, typeof(Gryphon));
+            prom.Insert(0, typeof(Lion));
+            prom.Insert(0, typeof(Gryphon));
         }
 
         public override List<byte[][]> GetMove(Piece[,] board)
