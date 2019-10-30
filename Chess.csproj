@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Bow.cs" />
     <Compile Include="Buffoon.cs" />
     <Compile Include="Camel.cs" />
     <Compile Include="Cannon.cs" />
