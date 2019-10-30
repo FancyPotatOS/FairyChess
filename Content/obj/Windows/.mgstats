@@ -1,4 +1,6 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/FancyPotatOS/source/repos/Chess/Content/antelope_0.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/antelope_0.xnb","TextureProcessor","Texture2DContent",495,4181,0.4438338
+"C:/Users/FancyPotatOS/source/repos/Chess/Content/antelope_1.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/antelope_1.xnb","TextureProcessor","Texture2DContent",499,4181,0.0119672
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/bishop_0.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/bishop_0.xnb","TextureProcessor","Texture2DContent",461,4181,0.775761
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/bishop_1.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/bishop_1.xnb","TextureProcessor","Texture2DContent",731,4181,0
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/blank.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/blank.xnb","TextureProcessor","Texture2DContent",386,4181,0.1358717
@@ -32,8 +34,8 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/instruc.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/instruc.xnb","TextureProcessor","Texture2DContent",1035,41045,0.141033
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/king_0.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/king_0.xnb","TextureProcessor","Texture2DContent",856,4181,0
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/king_1.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/king_1.xnb","TextureProcessor","Texture2DContent",713,4181,0.0156568
-"C:/Users/FancyPotatOS/source/repos/Chess/Content/knight_0.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/knight_0.xnb","TextureProcessor","Texture2DContent",877,4181,0.0156177
-"C:/Users/FancyPotatOS/source/repos/Chess/Content/knight_1.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/knight_1.xnb","TextureProcessor","Texture2DContent",1018,4181,0.0155888
+"C:/Users/FancyPotatOS/source/repos/Chess/Content/knight_0.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/knight_0.xnb","TextureProcessor","Texture2DContent",881,4181,0.1336755
+"C:/Users/FancyPotatOS/source/repos/Chess/Content/knight_1.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/knight_1.xnb","TextureProcessor","Texture2DContent",1027,4181,0.0143332
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/lion_0.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/lion_0.xnb","TextureProcessor","Texture2DContent",656,4181,0.1294555
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/lion_1.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/lion_1.xnb","TextureProcessor","Texture2DContent",641,4181,0.0363526
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/machine_0.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/machine_0.xnb","TextureProcessor","Texture2DContent",468,4181,0.149609
@@ -50,5 +52,7 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/ship_0.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/ship_0.xnb","TextureProcessor","Texture2DContent",554,4181,0.0079789
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/ship_1.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/ship_1.xnb","TextureProcessor","Texture2DContent",522,4181,0.0069605
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/stalemate.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/stalemate.xnb","TextureProcessor","Texture2DContent",492,16469,0.0169545
+"C:/Users/FancyPotatOS/source/repos/Chess/Content/unicorn_0.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/unicorn_0.xnb","TextureProcessor","Texture2DContent",696,4181,0.0140986
+"C:/Users/FancyPotatOS/source/repos/Chess/Content/unicorn_1.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/unicorn_1.xnb","TextureProcessor","Texture2DContent",704,4181,0.038759
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/won_0.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/won_0.xnb","TextureProcessor","Texture2DContent",517,16469,0.012551
 "C:/Users/FancyPotatOS/source/repos/Chess/Content/won_1.png","C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/won_1.xnb","TextureProcessor","Texture2DContent",513,16469,0.0200465

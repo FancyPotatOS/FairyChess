@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/FancyPotatOS/source/repos/Chess/Content/knight_1.png</SourceFile>
-  <SourceTime>2019-10-09T13:34:52.121966-03:00</SourceTime>
+  <SourceTime>2019-10-30T11:02:31.4766653-03:00</SourceTime>
   <DestFile>C:/Users/FancyPotatOS/source/repos/Chess/Content/bin/Windows/knight_1.xnb</DestFile>
-  <DestTime>2019-10-09T13:35:44.4709141-03:00</DestTime>
+  <DestTime>2019-10-30T11:11:11.7133662-03:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T12:35:54-04:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

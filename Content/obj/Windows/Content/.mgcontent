@@ -4,6 +4,8 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/antelope_0.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/antelope_1.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/bishop_0.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/bishop_1.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/blank.png</File>
@@ -55,10 +57,16 @@
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/ship_0.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/ship_1.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/stalemate.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/unicorn_0.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/unicorn_1.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/won_0.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/won_1.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
