@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Buffoon.cs" />
     <Compile Include="Camel.cs" />
+    <Compile Include="Cannon.cs" />
     <Compile Include="Centurion.cs" />
     <Compile Include="Elephant.cs" />
     <Compile Include="Game1.cs" />

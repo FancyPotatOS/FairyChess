@@ -65,7 +65,7 @@ namespace Chess
 
             for (byte seed = 0; seed < 8; seed++)
             {
-                byte[] dir = { (byte)(((seed / 4) + 1) % 2), (byte)(seed / 4) };
+                byte[] dir = { (byte)((((seed / 4) + 1) % 2) * 2), (byte)((seed / 4) * 2) };
                 sbyte xSign = (sbyte)((((seed / 2) % 2) * 2) - 1);
                 sbyte ySign = (sbyte)(((seed % 2) * 2) - 1);
 
