@@ -9,8 +9,12 @@
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/blank.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/bow_0.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/bow_1.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/buffalo_0.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/buffalo_1.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/buffoon_0.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/buffoon_1.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/bull_0.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/bull_1.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/camel_0.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/camel_1.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/cannon_0.png</File>
@@ -20,6 +24,10 @@
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/centurion_0.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/centurion_1.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/choice.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/diablo_0.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/diablo_1.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/dragon_woman_0.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/dragon_woman_1.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/elephant_0.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/elephant_1.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/empty_0.png</File>
@@ -51,6 +59,14 @@
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/won_1.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

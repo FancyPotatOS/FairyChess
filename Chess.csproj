@@ -42,10 +42,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Bow.cs" />
+    <Compile Include="Buffalo.cs" />
     <Compile Include="Buffoon.cs" />
+    <Compile Include="Bull.cs" />
     <Compile Include="Camel.cs" />
     <Compile Include="Cannon.cs" />
     <Compile Include="Centurion.cs" />
+    <Compile Include="Diablo.cs" />
+    <Compile Include="DragonWoman.cs" />
     <Compile Include="Elephant.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Bishop.cs" />
