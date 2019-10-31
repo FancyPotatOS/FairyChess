@@ -51,18 +51,26 @@
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/pawn_1.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/queen_0.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/queen_1.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/rhinoceros_0.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/rhinoceros_1.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/rook_0.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/rook_1.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/selected.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/ship_0.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/ship_1.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/stalemate.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/star_0.png</File>
+    <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/star_1.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/unicorn_0.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/unicorn_1.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/won_0.png</File>
     <File>C:/Users/FancyPotatOS/source/repos/Chess/Content/won_1.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

@@ -83,16 +83,20 @@ namespace Chess
 
             //board = GetDefault();
 
-            board[12, 8] = new Antelope(1);
+            board = GetFairyDefault();
+
+            /*
+            board[12, 8] = new Star(1);
             board[12, 12] = new King(1);
             board[12, 13] = new Bow(1);
 
-            board[6, 8] = new Antelope(0);
+            board[6, 8] = new Star(0);
             board[6, 9] = new Diablo(0);
-            board[6, 10] = new Antelope(0);
+            board[6, 10] = new Star(0);
             board[6, 11] = new King(0);
-            board[6, 12] = new Unicorn(0);
+            board[0, 0] = new Centurion(0);
             board[6, 13] = new Lion(0);
+            */
 
             accountedKeys = new List<Keys>();
         }
@@ -704,6 +708,206 @@ namespace Chess
             for (int i = 0; i < 16; i++)
             {
                 b[i % 8, (((int)(i / 8)) * 5) + 1] = new Pawn((byte)((int)(i / 8)));
+            }
+
+            return b;
+        }
+
+        internal static Piece[,] GetFairyDefault()
+        {
+            Piece[,] b = new Piece[BOARDSIZE, BOARDSIZE];
+
+            // Set Antelope
+            for (int seed = 0; seed < 4; seed++)
+            {
+                byte team = (byte)(seed / 2);
+                byte posX = (byte)((seed % 2) * (BOARDSIZE - 1));
+
+                b[posX, (team * (BOARDSIZE - 1))] = new Antelope(team);
+            }
+
+            // Set Camel
+            for (int seed = 0; seed < 4; seed++)
+            {
+                byte team = (byte)(seed / 2);
+                byte posX = (byte)((seed % 2) * (BOARDSIZE - 3) + 1);
+
+                b[posX, (team * (BOARDSIZE - 1))] = new Camel(team);
+            }
+
+            // Set Bow
+            for (int seed = 0; seed < 4; seed++)
+            {
+                byte team = (byte)(seed / 2);
+                byte posX = (byte)((seed % 2) * (BOARDSIZE - 5) + 2);
+
+                b[posX, (team * (BOARDSIZE - 1))] = new Bow(team);
+            }
+
+            // Set Bull
+            for (int seed = 0; seed < 4; seed++)
+            {
+                byte team = (byte)(seed / 2);
+                byte posX = (byte)((seed % 2) * (BOARDSIZE - 7) + 3);
+
+                b[posX, (team * (BOARDSIZE - 1))] = new Bull(team);
+            }
+
+            // Set Cannon
+            for (int seed = 0; seed < 4; seed++)
+            {
+                byte team = (byte)(seed / 2);
+                byte posX = (byte)((seed % 2) * (BOARDSIZE - 9) + 4);
+
+                b[posX, (team * (BOARDSIZE - 1))] = new Cannon(team);
+            }
+
+            // Set Buffalo
+            for (int seed = 0; seed < 2; seed++)
+            {
+                byte team = (byte)(seed % 2);
+                b[5, (team * (BOARDSIZE - 1))] = new Buffalo(team);
+            }
+
+            // Set Rhinoceros
+            for (int seed = 0; seed < 2; seed++)
+            {
+                byte team = (byte)(seed % 2);
+                b[6, (team * (BOARDSIZE - 1))] = new Rhinoceros(team);
+            }
+
+            // Set Star
+            for (int seed = 0; seed < 2; seed++)
+            {
+                byte team = (byte)(seed % 2);
+                b[7, (team * (BOARDSIZE - 1))] = new Star(team);
+            }
+
+            // Set Unicorn
+            for (int seed = 0; seed < 2; seed++)
+            {
+                byte team = (byte)(seed % 2);
+                b[8, (team * (BOARDSIZE - 1))] = new Unicorn(team);
+            }
+
+            // Set DragonWoman
+            for (int seed = 0; seed < 2; seed++)
+            {
+                byte team = (byte)(seed % 2);
+                b[9, (team * (BOARDSIZE - 1))] = new DragonWoman(team);
+            }
+
+            // Set Diablo
+            for (int seed = 0; seed < 2; seed++)
+            {
+                byte team = (byte)(seed % 2);
+                b[10, (team * (BOARDSIZE - 1))] = new Diablo(team);
+            }
+
+            // Set Centurion
+            for (int seed = 0; seed < 28; seed++)
+            {
+                byte team = (byte)((seed/14) % 2);
+                byte posX = (byte)(((9 + seed) + (team * 2)) % BOARDSIZE);
+                b[posX, ((team * (BOARDSIZE - 3)) + 1)] = new Centurion(team);
+            }
+
+            // Set Lion
+            for (int seed = 0; seed < 2; seed++)
+            {
+                byte team = (byte)(seed % 2);
+                b[7, ((team * (BOARDSIZE - 3)) + 1)] = new Lion(team);
+            }
+
+            // Set Gryphon
+            for (int seed = 0; seed < 2; seed++)
+            {
+                byte team = (byte)(seed % 2);
+                b[8, ((team * (BOARDSIZE - 3)) + 1)] = new Gryphon(team);
+            }
+
+            // Set Elephant
+            for (int seed = 0; seed < 4; seed++)
+            {
+                byte team = (byte)(seed / 2);
+                byte posX = (byte)((seed % 2) * (BOARDSIZE - 1));
+
+                b[posX, (team * (BOARDSIZE - 5)) + 2] = new Elephant(team);
+            }
+
+            // Set Machine
+            for (int seed = 0; seed < 4; seed++)
+            {
+                byte team = (byte)(seed / 2);
+                byte posX = (byte)(((seed % 2) * (BOARDSIZE - 3)) + 1);
+
+                b[posX, (team * (BOARDSIZE - 5)) + 2] = new Machine(team);
+            }
+
+            // Set Rook
+            for (int seed = 0; seed < 4; seed++)
+            {
+                byte team = (byte)(seed / 2);
+                byte posX = (byte)(((seed % 2) * (BOARDSIZE - 5)) + 2);
+
+                b[posX, (team * (BOARDSIZE - 5)) + 2] = new Rook(team);
+            }
+
+            // Set Knight
+            for (int seed = 0; seed < 4; seed++)
+            {
+                byte team = (byte)(seed / 2);
+                byte posX = (byte)(((seed % 2) * (BOARDSIZE - 7)) + 3);
+
+                b[posX, (team * (BOARDSIZE - 5)) + 2] = new Knight(team);
+            }
+
+            // Set Bishop
+            for (int seed = 0; seed < 4; seed++)
+            {
+                byte team = (byte)(seed / 2);
+                byte posX = (byte)(((seed % 2) * (BOARDSIZE - 9)) + 4);
+
+                b[posX, (team * (BOARDSIZE - 5)) + 2] = new Bishop(team);
+            }
+
+            // Set Ship
+            for (int seed = 0; seed < 4; seed++)
+            {
+                byte team = (byte)(seed / 2);
+                byte posX = (byte)(((seed % 2) * (BOARDSIZE - 11)) + 5);
+
+                b[posX, (team * (BOARDSIZE - 5)) + 2] = new Ship(team);
+            }
+
+            // Set Buffoon
+            for (int seed = 0; seed < 4; seed++)
+            {
+                byte team = (byte)(seed / 2);
+                byte posX = (byte)(((seed % 2) * (BOARDSIZE - 13)) + 6);
+
+                b[posX, (team * (BOARDSIZE - 5)) + 2] = new Buffoon(team);
+            }
+
+            // Set Queen
+            for (int seed = 0; seed < 2; seed++)
+            {
+                byte team = (byte)(seed % 2);
+                b[7, ((team * (BOARDSIZE - 5)) + 2)] = new Queen(team);
+            }
+
+            // Set King
+            for (int seed = 0; seed < 2; seed++)
+            {
+                byte team = (byte)(seed % 2);
+                b[8, ((team * (BOARDSIZE - 5)) + 2)] = new King(team);
+            }
+
+            // Set FairyPawn
+            for (int seed = 0; seed < 32; seed++)
+            {
+                byte team = (byte)(seed / 16);
+                b[(seed%16), (byte)((team * (BOARDSIZE - 7)) + 3)] = new FairyPawn(team);
             }
 
             return b;
