@@ -6,12 +6,12 @@ Design, rules, and inspiration comes from [Fairy Chess](http://abstractstrategyg
 
 Game is has no end, but has input validation
 
-- Controls-
-WASD - up/left/down/right
-Q - Quit
-Enter - Select piece, accept movement
-R - Select movement selection type
-Escape - Choose different piece
+ **Controls**
+- WASD - up/left/down/right
+- Q - Quit
+- Enter - Select piece, accept movement
+- R - Select movement selection type
+- Escape - Choose different piece
 
 If you hover over a piece on your turn, it'll show all available moves
 
